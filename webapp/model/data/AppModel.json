@@ -1,0 +1,30 @@
+{
+  "navigation": [
+    {
+      "title": "Commom.Home",
+      "icon": "sap-icon://bbyd-dashboard",
+      "expanded": true,
+      "key": "dashBoard"
+    },
+    {
+      "title": "Commom.Exemples",
+      "icon": "sap-icon://show",
+      "expanded": true,
+      "key": "exemplos"
+    },
+    {
+      "title": "Commom.CriptoAnalizer",
+      "icon": "sap-icon://overview-chart",
+      "expanded": true,
+      "key": "criptoAnalizer"
+    }
+  ],
+  "fixedNavigation": [
+    {
+      "title": "Commom.Settings",
+      "icon": "sap-icon://settings",
+      "key": "settings"
+    }
+  ],
+  "headerItems": []
+}

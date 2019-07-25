@@ -1,0 +1,93 @@
+<mvc:View
+	controllerName="CriptAnaliser.src.pages.criptoAnalizer.CriptoAnalizer"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="CriptAnaliser.controls"
+    xmlns:l="sap.ui.layout"	
+	height="100%">
+    <Page 
+		showNavButton="true" 
+		title="{i18n>Commom.CriptoAnalizer}" 
+		navButtonPress="onNavBack">
+        <content>
+            <HBox>
+                <VBox class="sapUiTinyMargin" >
+                    <Label text="Moeda" />
+                    <Select					
+				selectedKey="{View>/SelectedCoin}"
+				items="{
+					path: 'Coins>/',
+					sorter: { path: 'Value' }
+				}">
+                        <core:Item key="{Coins>Key}" text="{Coins>Value}" />
+                    </Select>
+                </VBox>
+                <VBox class="sapUiTinyMargin" width="230px">
+                    <Label text="Inicio" />
+                    <DateRangeSelection
+			id="DRS1"		
+			dateValue="{path:'View>/dateValueDRS1'}"
+			secondDateValue="{path:'View>/secondDateValueDRS1'}"
+			displayFormat="dd/MM/yyyy"
+			change="handleRangeChange"
+		/>
+                </VBox>
+                <!-- <VBox class="sapUiTinyMargin"  width="65px"><Label text="Intervalo" /><Input id="inputInterval" type="" /></VBox><VBox class="sapUiTinyMargin"><Label text="Adicionar" /><Button  width="100%"  text="Click para adicionar" type="Emphasized" press="onAddButton"></Button></VBox>	 -->
+                <VBox class="sapUiTinyMargin">
+                    <Label text="Limpar" />
+                    <Button  width="100%"  text="Limpar dados" type="Ghost" press="onClean"></Button>
+                </VBox>
+                <VBox class="sapUiTinyMargin">
+                    <Label text="API" />
+                    <Button  width="100%"  text="Buscar" type="Accept" press="onFind"></Button>
+                </VBox>
+            </HBox>
+            <Panel class="sapUiDemoFlexBoxSizeAdjustments">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title level="H2" text="Resumo de hoje" />
+                    </Toolbar>
+                </headerToolbar>
+                <FlexBox
+				 backgroundDesign="Solid" 
+					class="primary-bg"
+					alignItems="Start"
+					items="{Tickers>/}">
+                    
+                    <VBox class="sapUiContentPadding" style="border: solid 1px #48a9c5">
+                        <custom:MinMax minima="{Tickers>low}" maxima="{Tickers>high}" day="{Tickers>date}" coin="{Tickers>coin}"/>
+                        <ObjectNumber  number="{path: 'Tickers>last', formatter: '.fmt.currency'}" state="Error" ></ObjectNumber>
+					  	<ProgressIndicator
+                            class="sapUiSmallMarginBottom"						
+                            percentValue="{Tickers>percent}"
+                            displayValue="{Tickers>percent}%^"
+                            showValue="true"
+                            state="None" />
+					    <layoutData>
+                            <FlexItemData growFactor="1" />
+                        </layoutData>
+                    </VBox>                   
+                    
+
+                </FlexBox>
+            </Panel>
+            <Panel class="sapUiDemoFlexBoxSizeAdjustments">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title level="H2" text="Resumo por data" />
+                    </Toolbar>
+                </headerToolbar>
+                <FlexBox
+					 backgroundDesign="Translucent" 
+					alignItems="Start"
+					items="{path:'/', sorter:'coin'}">
+                    <VBox class="sapUiContentPadding" style="border: solid 1px #48a9c5">
+                        <custom:MinMax minima="{lowest}" maxima="{highest}" day="{date}" coin="{coin}"/>
+                    </VBox>
+                </FlexBox>
+            </Panel>
+            
+        </content>
+    </Page>
+</mvc:View>
