@@ -157,7 +157,7 @@
           "viewPath": "CriptAnaliser.src.pages.languages"
         },
         "criptoAnalizer": {
-          "viewName": "criptoAnalizer",
+          "viewName": "CriptoAnalizer",
           "viewLevel": 3,
           "viewPath": "CriptAnaliser.src.pages.criptoAnalizer"
         }
