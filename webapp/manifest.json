@@ -166,7 +166,7 @@
   },
   "name": "CriptAnaliser",
   "short_name": "Invent",
-  "start_url": "index.html",
+  "start_url": "../index.html",
   "display": "standalone",
   "orientation": "portrait",
   "icons": [
