@@ -23,5 +23,9 @@
 }
 
 .primary-bg {
-	background-color: #b4a996 !important;
+	background-color: #D0CFD5 !important;
+}
+
+.bordered{
+	border: 1px solid #575758 !important
 }

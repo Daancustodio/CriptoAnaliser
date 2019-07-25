@@ -4,7 +4,9 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:custom="CriptAnaliser.controls"
-    xmlns:l="sap.ui.layout"	
+    xmlns:l="sap.ui.layout"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:f="sap.f"
 	height="100%">
     <Page 
 		showNavButton="true" 
@@ -15,25 +17,24 @@
                 <VBox class="sapUiTinyMargin" >
                     <Label text="Moeda" />
                     <Select					
-				selectedKey="{View>/SelectedCoin}"
-				items="{
-					path: 'Coins>/',
-					sorter: { path: 'Value' }
-				}">
+                    selectedKey="{View>/SelectedCoin}"
+                    items="{
+                        path: 'Coins>/',
+                        sorter: { path: 'Value' }
+                    }">
                         <core:Item key="{Coins>Key}" text="{Coins>Value}" />
                     </Select>
                 </VBox>
                 <VBox class="sapUiTinyMargin" width="230px">
                     <Label text="Inicio" />
                     <DateRangeSelection
-			id="DRS1"		
-			dateValue="{path:'View>/dateValueDRS1'}"
-			secondDateValue="{path:'View>/secondDateValueDRS1'}"
-			displayFormat="dd/MM/yyyy"
-			change="handleRangeChange"
-		/>
-                </VBox>
-                <!-- <VBox class="sapUiTinyMargin"  width="65px"><Label text="Intervalo" /><Input id="inputInterval" type="" /></VBox><VBox class="sapUiTinyMargin"><Label text="Adicionar" /><Button  width="100%"  text="Click para adicionar" type="Emphasized" press="onAddButton"></Button></VBox>	 -->
+                        id="DRS1"		
+                        dateValue="{path:'View>/dateValueDRS1'}"
+                        secondDateValue="{path:'View>/secondDateValueDRS1'}"
+                        displayFormat="dd/MM/yyyy"
+                        change="handleRangeChange"
+		            />
+                </VBox>                
                 <VBox class="sapUiTinyMargin">
                     <Label text="Limpar" />
                     <Button  width="100%"  text="Limpar dados" type="Ghost" press="onClean"></Button>
@@ -43,36 +44,31 @@
                     <Button  width="100%"  text="Buscar" type="Accept" press="onFind"></Button>
                 </VBox>
             </HBox>
-            <Panel class="sapUiDemoFlexBoxSizeAdjustments">
+            <Panel class="sapUiDemoFlexBoxSizeAdjustments primary-bg">
                 <headerToolbar>
                     <Toolbar>
                         <Title level="H2" text="Resumo de hoje" />
                     </Toolbar>
                 </headerToolbar>
-                <FlexBox
-				 backgroundDesign="Solid" 
-					class="primary-bg"
+                <FlexBox				 
+                    backgroundDesign="Transparent" 					
 					alignItems="Start"
+                    alignContent="SpaceBetween"
 					items="{Tickers>/}">
-                    
-                    <VBox class="sapUiContentPadding" style="border: solid 1px #48a9c5">
-                        <custom:MinMax minima="{Tickers>low}" maxima="{Tickers>high}" day="{Tickers>date}" coin="{Tickers>coin}"/>
-                        <ObjectNumber  number="{path: 'Tickers>last', formatter: '.fmt.currency'}" state="Error" ></ObjectNumber>
-					  	<ProgressIndicator
-                            class="sapUiSmallMarginBottom"						
+                    <VBox class="sapUiContentPadding sapUiTinyMargin bordered">
+                        <custom:MinMax minima="{Tickers>low}" maxima="{Tickers>high}" day="{Tickers>date}" current="{Tickers>last}" coin="{Tickers>coin}"/>
+                        <ProgressIndicator                            					
                             percentValue="{Tickers>percent}"
                             displayValue="{Tickers>percent}%^"
                             showValue="true"
-                            state="None" />
-					    <layoutData>
+                            state="{path:'Tickers>percent', formatter: '.fmt.formatPercentVariation'}" />
+                        <layoutData>
                             <FlexItemData growFactor="1" />
                         </layoutData>
-                    </VBox>                   
-                    
-
+                    </VBox>
                 </FlexBox>
             </Panel>
-            <Panel class="sapUiDemoFlexBoxSizeAdjustments">
+            <!-- <Panel class="sapUiDemoFlexBoxSizeAdjustments">
                 <headerToolbar>
                     <Toolbar>
                         <Title level="H2" text="Resumo por data" />
@@ -86,8 +82,27 @@
                         <custom:MinMax minima="{lowest}" maxima="{highest}" day="{date}" coin="{coin}"/>
                     </VBox>
                 </FlexBox>
-            </Panel>
+            </Panel> -->
             
+                    <f:GridList
+					id="gridList"
+					headerText="Resumo por data"
+					items="{path:'/', sorter:'coin'}">
+                        <f:customLayout>
+                            <grid:GridBoxLayout boxMinWidth="10rem"/>
+                        </f:customLayout>
+                        <CustomListItem>
+                            <VBox height="100%">
+                                <VBox class="sapUiSmallMargin">
+                                    <layoutData>
+                                        <FlexItemData growFactor="1" shrinkFactor="0" />
+                                    </layoutData>
+                                    <custom:MinMax minima="{lowest}" maxima="{highest}" day="{date}" coin="{coin}"/>
+                                </VBox>
+                            </VBox>
+                        </CustomListItem>
+                    </f:GridList>
+                
         </content>
     </Page>
 </mvc:View>

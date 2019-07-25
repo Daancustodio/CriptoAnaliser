@@ -150,15 +150,15 @@ sap.ui.define([
 				return "Error";
 			}
     },
-    formatIconColor : function(iValue){
-      if (iValue < 50) {
-				return "Positive";
-			} else if (iValue >= 50 && iValue < 101 ) {
-				return "Neutral";
-			} else if (iValue >= 101 && iValue < 151 ) {
-				return "Critical";
+    formatPercentVariation : function(iValue){
+      if (iValue >= 90) {
+				return "Success";
+			} else if (iValue >= 80 && iValue < 90 ) {
+				return "Success";
+			} else if (iValue >= 15 && iValue < 80 ) {
+				return "None";
 			} else {
-				return "Negative";
+				return "Error";
 			}
     },
     isEmptyModel : function(oModel){

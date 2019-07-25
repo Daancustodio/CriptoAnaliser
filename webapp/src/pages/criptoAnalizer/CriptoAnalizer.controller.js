@@ -17,7 +17,7 @@ sap.ui.define(
 				this.setModel(new RestModel(this.getCoins()), "Coins");
 				this.setModel(new RestModel({SelectedCoin : "BTC"}), "View");
 				this.loadTickers()
-				setInterval(()=>this.loadTickers(), 15000)
+				setInterval(()=>this.loadTickers(), 25000)
 			},	
 			loadTickers(){
 				this.setModel(new RestModel([]), "Tickers");			
