@@ -34,13 +34,18 @@ sap.ui.define([
             let max = oControl.getMaxima();  
             let diff = max - min;
             let day = formatter.getDDMM(oControl.getDay());
+            let percentBase = min;
+            let percentVariation = (100 / percentBase) * diff;
+            percentVariation = percentVariation.toFixed(2);
+
             //let day =oControl.getDay()
             let current = oControl.getCurrent();
             let coin = oControl.getCoin();
-            const createObjectNumber = function(state, value){
+            const createObjectNumber = function(state, value, percent){
                 let oNumber = new sap.m.ObjectNumber({
                     state: state,
-                    number:formatter.currency(value)                                
+                    number:formatter.currency(value),
+                    unit : percent                                
                 });
     
                 return oNumber;
@@ -50,8 +55,8 @@ sap.ui.define([
             top.setTooltip("Máxima");
             let middle = createObjectNumber("Error", min);
             middle.setTooltip("Mínima");
-
-            let bottom = createObjectNumber("Warning", diff);
+            let percentTExt = `(${percentVariation}%)`
+            let bottom = createObjectNumber("Warning", diff, percentTExt);
             bottom.setTooltip("Variação entre Mínima e Máxima")
             let label = new sap.m.Label({text : labeltring});
             oRM.renderControl(label)

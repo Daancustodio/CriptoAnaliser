@@ -106,11 +106,6 @@
           "target": "settings"
         },
         {
-          "pattern": "exemplos",
-          "name": "exemplos",
-          "target": "exemplos"
-        },
-        {
           "pattern": "languages",
           "name": "languages",
           "target": "languages"
@@ -119,6 +114,11 @@
           "pattern": "",
           "name": "criptoAnalizer",
           "target": "criptoAnalizer"
+        },
+        {
+          "pattern": "bitcoin",
+          "name": "bitcoin",
+          "target": "bitcoin"
         }
       ],
       "targets": {
@@ -140,12 +140,6 @@
           "viewPath": "CriptAnaliser.src.pages.security",
           "transition": "flip"
         },
-        "exemplos": {
-          "viewName": "CustomControls",
-          "viewLevel": 3,
-          "viewPath": "CriptAnaliser.src.pages.exemplos",
-          "transition": "flip"
-        },
         "app": {
           "viewName": "App",
           "viewLevel": 3,
@@ -160,6 +154,11 @@
           "viewName": "CriptoAnalizer",
           "viewLevel": 3,
           "viewPath": "CriptAnaliser.src.pages.criptoAnalizer"
+        },
+        "bitcoin": {
+          "viewName": "bitcoin",
+          "viewLevel": 3,
+          "viewPath": "CriptAnaliser.src.pages.bitcoin"
         }
       }
     }

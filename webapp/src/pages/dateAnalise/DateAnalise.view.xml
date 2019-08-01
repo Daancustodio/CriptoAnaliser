@@ -1,0 +1,86 @@
+<mvc:View
+	controllerName="CriptAnaliser.src.pages.dateAnalise.DateAnalise"
+	xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:custom="CriptAnaliser.controls"
+    xmlns:l="sap.ui.layout"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:f="sap.f"
+	height="100%">
+	<Page 
+		showNavButton="true" 
+		title="{i18n>Commom.DateAnalise}" 
+		navButtonPress="onNavBack">
+		
+		<content>
+             <f:GridList					
+					    headerText="Resumo por data">
+                        <f:customLayout>
+                            <grid:GridBoxLayout boxMinWidth="17rem"/>
+                        </f:customLayout>
+
+                        <CustomListItem>
+                            <VBox class="sapUiTinyMargin" >
+                                <Label text="Moeda" />
+                                <Select					
+                                selectedKey="{View>/SelectedCoin}"
+                                items="{
+                                    path: 'Coins>/',
+                                    sorter: { path: 'Value' }
+                                }">
+                                    <core:Item key="{Coins>Key}" text="{Coins>Value}" />
+                                </Select>
+                            </VBox>
+                        </CustomListItem>
+
+                        <CustomListItem>
+
+                            <VBox class="sapUiTinyMargin" width="230px">
+                                <Label text="Intervalo" />
+                                <DateRangeSelection
+                                    id="DRS1"		
+                                    dateValue="{path:'View>/dateValueDRS1'}"
+                                    secondDateValue="{path:'View>/secondDateValueDRS1'}"
+                                    displayFormat="dd/MM/yyyy"
+                                    change="handleRangeChange"
+                                />
+                            </VBox>   
+                        </CustomListItem>
+
+                        <CustomListItem>
+
+                            <VBox class="sapUiTinyMargin">
+                                <Label text="Limpar" />
+                                <Button  width="100%"  text="Limpar dados" type="Ghost" press="onClean"></Button>
+                            </VBox>
+                        </CustomListItem>
+                        <CustomListItem>
+                            <VBox class="sapUiTinyMargin">
+                                <Label text="API" />
+                                <Button  width="100%"  text="Buscar" type="Accept" press="onFind"></Button>
+                            </VBox>
+                        </CustomListItem>
+                    </f:GridList>
+
+
+                    <f:GridList
+						id="gridList"
+						headerText="Resumo por data"
+						items="{path:'/', sorter:'coin'}">
+                        <f:customLayout>
+                            <grid:GridBoxLayout boxMinWidth="10rem"/>
+                        </f:customLayout>
+                        <CustomListItem>                            
+                                <VBox class="sapUiSmallMargin">
+                                    <layoutData>
+                                        <FlexItemData growFactor="1" shrinkFactor="0" />
+                                    </layoutData>
+                                    <custom:MinMax minima="{lowest}" maxima="{highest}" day="{date}" coin="{coin}"/>
+                                </VBox>                            
+                        </CustomListItem>
+                    </f:GridList>
+                
+		</content>	
+	</Page>
+</mvc:View>

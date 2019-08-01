@@ -22,39 +22,11 @@ function (BaseController, JSONModel, Device, MessageToast, MessageBox, BusyIndic
             .getRoute('settings')
             .attachPatternMatched(this._onRouteMatched, this);
 
-            var model = {Theme : ''}
-            this.oModel = new JSONModel();
-            this.oModel.setData(model);
-            this.setModel(this.oModel);
-            this._loadThemes();
+            
 
         },
-        formatter : formatter,
-        _loadThemes : function(){
-            var themes = this.getOwnerComponent().getMetadata().getManifest()["sap.ui"].supportedThemes;
-            var oViewModelSelections = new JSONModel({themes : themes});
-			this.setModel(oViewModelSelections,"oViewModelSelections");
+        _onRouteMatched : function(oEvent){        
         },
-
-        _loadSettings : function(){
-            this.byId('idIconTabBar').setBusy(true);
-            let serverURL = this.getServerUrl(this.api.settings);
-            let model = new JSONModel(serverURL);
-
-            this.setModel(model,"Settings");
-            this.byId('idIconTabBar').setBusy(false);
-
-        },
-        _onRouteMatched : function(oEvent){
-            this._loadSettings();
-        },
-
-        applyConfig : function(oEvent){
-			var newConfig = this.getModel("Settings").getProperty("/Theme");
-            sap.ui.getCore().applyTheme(newConfig);
-            this.Save(oEvent)
-        },
-
         Save : function(oEvent)     {
 
         },

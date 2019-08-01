@@ -12,39 +12,7 @@
 
 	<Page title="{i18n>App.DasboardTitle}" >
 		<content>
-			<VBox class="sapUiTinyMargin">
-				<Button  width="100%"  text="Clique aqui para ver um emxemplo da tela de erros" type="Emphasized" press="onFakeEx"></Button>
-			</VBox>
-			<List
-				id="fipeList"
-				items="{fipe>/}"
-				includeItemInSelection="true">
-				<headerToolbar>
-					<Toolbar>
-						<Title  text="{selectedCompany>/fipe_name}" level="H2" />
-						<tnt:InfoLabel id="il1" text="{fipe>/length}" renderMode="Narrow" colorScheme="1" displayOnly= "true"/>
-						<SearchField  search="filterCars"   width="30%" />
-						<ToolbarSpacer />
-						<Select
-							id="selectMarca"
-							change="updateVeicleSelected"
-							forceSelection="true"
-							selectedKey="6"
-							items="{
-								path: 'marcas>/'
-							}">
-							<core:ListItem key="{marcas>id}" text="{marcas>name}" icon="sap-icon://building"/>
-						</Select>
-					</Toolbar>
-				</headerToolbar>
-				<StandardListItem
-					icon="sap-icon://car-rental"
-					infoState="Success"
-					type="Navigation"
-					title="{fipe>fipe_name}"
-					info="{fipe>fipe_marca}"
-					press="loadCarModels"/>
-			</List>
+				
 		</content>
 	</Page>
 </core:View>

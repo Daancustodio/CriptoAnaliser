@@ -7,16 +7,16 @@
       "key": "dashBoard"
     },
     {
-      "title": "Commom.Exemples",
-      "icon": "sap-icon://show",
-      "expanded": true,
-      "key": "exemplos"
-    },
-    {
       "title": "Commom.CriptoAnalizer",
       "icon": "sap-icon://overview-chart",
       "expanded": true,
       "key": "criptoAnalizer"
+    },
+    {
+      "title": "Commom.Bitcoin",
+      "icon": "sap-icon://error",
+      "expanded": true,
+      "key": "bitcoin"
     }
   ],
   "fixedNavigation": [
