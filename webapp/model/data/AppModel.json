@@ -14,7 +14,7 @@
     },
     {
       "title": "Commom.Bitcoin",
-      "icon": "sap-icon://error",
+      "icon": "sap-icon://lead-outdated",
       "expanded": true,
       "key": "bitcoin"
     }

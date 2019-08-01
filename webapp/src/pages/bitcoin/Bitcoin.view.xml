@@ -4,16 +4,18 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
     xmlns:custom="CriptAnaliser.controls"
+    xmlns:invCharts="CriptAnaliser.controls.invCharts"
     xmlns:l="sap.ui.layout"
     xmlns:grid="sap.ui.layout.cssgrid"
     xmlns:f="sap.f"	
+	xmlns:micro="sap.suite.ui.microchart"
 	height="100%">
 	<Page 
 		showNavButton="true" 
 		title="{i18n>Commom.Bitcoin}" 
 		navButtonPress="onNavBack">
 		
-		<content>		
+		<content>	
 				<f:GridList
 					id="gridList"
 					headerText="BTC - Ultimos 7 dias"
@@ -32,6 +34,9 @@
                             </VBox>
                         </CustomListItem>
                 </f:GridList>
+				<VBox class="sapUiSmallMargin" width="95%" >
+					<invCharts:MultiLineChart id="multiLineChart" height="350px"  />				
+				</VBox>
 		</content>	
 	</Page>
 </mvc:View>
