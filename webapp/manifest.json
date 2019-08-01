@@ -156,7 +156,7 @@
           "viewPath": "CriptAnaliser.src.pages.criptoAnalizer"
         },
         "bitcoin": {
-          "viewName": "bitcoin",
+          "viewName": "Bitcoin",
           "viewLevel": 3,
           "viewPath": "CriptAnaliser.src.pages.bitcoin"
         }
