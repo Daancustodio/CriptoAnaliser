@@ -22,7 +22,7 @@ sap.ui.define([
                 chartType: {type: "string", defaultValue:"line"},
                 width: {
                     type: "sap.ui.core.CSSSize",
-                    defaultValue: "100%"
+                    defaultValue: "100"
                 },                
                 height: {
                     type: "sap.ui.core.CSSSize",
@@ -36,7 +36,7 @@ sap.ui.define([
         },
 
 		renderer : function (oRm, oControl) {
-            oRm.write("<canvas") 
+            oRm.write("<canvas ") 
             oRm.addStyle("width", oControl.getProperty('width'));
             oRm.addStyle("height", oControl.getProperty('height'));                      
             oRm.writeClasses();
@@ -49,19 +49,31 @@ sap.ui.define([
             return this.multiLineChart;
         },
         
-        show: function(dataSets, labels) {
-            var canvas = document.querySelector("canvas");
+        show: function(dataSets, labels, type) {
+            if(!this.ctx){
+                let query = `canvas#${this.getId()}`
+                this.ctx = document.querySelector(query).getContext("2d");
+                this.ctx.save();
+            }else{
+                this.ctx.restore()
+            }
             try {
-                    const config = this.getChartConfig(dataSets, labels);
-                    this.multiLineChart = new Chart(canvas, config);                    
+                    type = type || this.getChartType();
+                    let config = this.getChartConfig(dataSets, labels, type);
+                    this.multiLineChart = new Chart(this.ctx, config); 
+                    this.multiLineChart.update();
+                    return this.multiLineChart;                   
             } catch (e) {
                 console.error(e);
             }
         },
-        getChartConfig(dataSets, labels){   
+        setType(type){
+            this.multiLineChart.update({type});
+        },
+        getChartConfig(dataSets, labels, type){   
                     
 		    let config = {
-                type: this.getChartType(),
+                type: type,
                 data: {
                     labels: labels,
                     datasets: dataSets

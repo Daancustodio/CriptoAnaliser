@@ -2,15 +2,16 @@ sap.ui.define(
 	[
 	"CriptAnaliser/src/app/BaseController",		
 	"CriptAnaliser/model/RestModel",
+	"CriptAnaliser/controls/invCharts/MultiLineChart",
 	], 
-	function (BaseController, RestModel) {
+	function (BaseController, RestModel, MultiLineChart) {
 		"use strict";
 
 		return BaseController.extend("CriptAnaliser.src.pages.bitcoin.Bitcoin", {
 			onInit : function(){
 				console.log("controller [Bitcoin] Inicializado");
 				this.getLastDaysData(7);
-				/* let data = {
+				let data = {
 					types : [
 						{type:'bar',name:"Barra"},
 						{type:'line',name:"Linhas"},
@@ -18,7 +19,7 @@ sap.ui.define(
 					],
 					selectedType: "bar"
 				}
-				this.setModel(new RestModel(data), "Chart"); */
+				this.setModel(new RestModel(data), "Chart"); 
 			},		
 			getLastDaysData(lastDaysCount){
 				this.setModel(new RestModel([]), "LastDays");
@@ -36,12 +37,20 @@ sap.ui.define(
 						from = this.addDays(from, 1);
 						this.getApiDataRange(from, to);					
 						this.pushModelLastDays(data);
-					}else{						
-						this.buildChart();
+					}else{										
+						this.showChart();
 					}
 				})
 			},
-			buildChart(){
+			showChart(type){				
+				let data = this.getChartData();	
+				this.multiLineChart = this.byId('multiLineChart');	
+				this.multiLineChartBar = this.byId('multiLineChartBar');	
+
+				this.chartCanvas = this.multiLineChart.show(data.dataSets, data.labels, type);
+				this.chartCanvasBar = this.multiLineChartBar.show(data.dataSets, data.labels, type);
+			},
+			getChartData(){
 				let chartColors = {
 					red: 'rgb(255, 99, 132)',
 					orange: 'rgb(255, 159, 64)',
@@ -51,7 +60,6 @@ sap.ui.define(
 					purple: 'rgb(153, 102, 255)',
 					grey: 'rgb(201, 203, 207)'
 				}; 
-				let control = this.byId('multiLineChart');
 				let data = this.getModel("LastDays").getData();
 				let max = {fill : false, label: "Máxima", backgroundColor: chartColors.green, borderColor: chartColors.green};
 				let lowest = {fill :false, label: "Mínima", backgroundColor: chartColors.red, borderColor: chartColors.red};
@@ -60,9 +68,10 @@ sap.ui.define(
 				lowest.data = data.map(x => x.lowest.toFixed(2))
 				diff.data = data.map(x => (x.highest - x.lowest).toFixed(2));
 				let labels = data.map(x => `${x.day}/${x.month}/${x.year}`);				
-				let dataSets = [max, lowest, diff];				
-				control.show(dataSets, labels);
+				let dataSets = [max, lowest, diff];		
+				return {dataSets, labels};
 			},
+
 			addDays(date, days) {
 				var result = new Date(date);
 				result.setDate(result.getDate() + days);
