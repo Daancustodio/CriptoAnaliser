@@ -27,5 +27,49 @@
 }
 
 .bordered{
-	border: 1px solid #575758 !important
+	border: 1px solid rgb(54, 162, 235) !important
 }
+.color-red {
+	color : rgb(255, 99, 132) !important
+}
+.color-orange {
+	color : rgb(255, 159, 64) !important
+}
+.color-yellow{
+	color : rgb(255, 205, 86) !important
+}
+.color-green{
+	color : rgb(75, 192, 192) !important
+}
+.color-blue{
+	color : rgb(54, 162, 235) !important
+}
+.color-purple{
+	color:rgb(153, 102, 255)  !important
+}
+.color-grey{
+	color: rgb(201, 203, 207)  !important
+} 
+
+
+.bg-red {
+	background-color:  rgb(255, 99, 132) !important
+}
+.bg-orange {
+	background-color:  rgb(255, 159, 64) !important
+}
+.bg-yellow{
+	background-color:  rgb(255, 205, 86) !important
+}
+.bg-green{
+	background-color:  rgb(75, 192, 192) !important
+}
+.bg-blue{
+	background-color:  rgb(54, 162, 235) !important
+}
+.bg-purple{
+	background-color: rgb(153, 102, 255)  !important
+}
+.bg-grey{
+	background-color:  rgba(201, 203, 207,.3)  !important
+} 

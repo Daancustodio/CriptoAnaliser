@@ -1,11 +1,11 @@
 {
-  "navigation": [
-    {
-      "title": "Commom.Home",
-      "icon": "sap-icon://bbyd-dashboard",
-      "expanded": true,
-      "key": "dashBoard"
-    },
+  "disabled": {
+    "title": "Commom.Home",
+    "icon": "sap-icon://bbyd-dashboard",
+    "expanded": true,
+    "key": "dashBoard"
+  },
+  "navigation": [   
     {
       "title": "Commom.CriptoAnalizer",
       "icon": "sap-icon://overview-chart",

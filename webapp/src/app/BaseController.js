@@ -6,8 +6,8 @@ sap.ui.define([
 	"use strict";
 
 	return Controller.extend("CriptAnaliser.src.app.BaseController", {
-    fmt: formatter,
-    USER_SESSION_PATH: "currentUser",
+		fmt: formatter,
+		USER_SESSION_PATH: "currentUser",
 		getRouter : function () {
 			return sap.ui.core.UIComponent.getRouterFor(this);
 
@@ -106,9 +106,18 @@ sap.ui.define([
 			localStorage.removeItem(path);
 		},
 
-    extractObjects: (oEvent) => {
+    	extractObjects: (oEvent) => {
 			let objects = oEvent.getParameter("selectedContexts").map(x => x.getObject())
 			return objects;
 		},
+		COLORS : {
+			red: 'rgb(255, 99, 132)',
+			orange: 'rgb(255, 159, 64)',
+			yellow: 'rgb(255, 205, 86)',
+			green: 'rgb(75, 192, 192)',
+			blue: 'rgba(54, 162, 235,.8)',
+			purple: 'rgb(153, 102, 255)',
+			grey: 'rgb(201, 203, 207)'
+		}
 	});
 });

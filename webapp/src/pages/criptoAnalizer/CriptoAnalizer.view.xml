@@ -45,7 +45,7 @@
                     <Button  width="100%"  text="Buscar" type="Accept" press="onFind"></Button>
                 </VBox>
             </HBox>
-            <Panel class="sapUiDemoFlexBoxSizeAdjustments primary-bg">
+            <Panel class="sapUiDemoFlexBoxSizeAdjustments bg-grey">
                 <headerToolbar>
                     <Toolbar>
                         <Title level="H2" text="Resumo de hoje" />
