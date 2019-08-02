@@ -46,7 +46,7 @@ sap.ui.define(
 			onClean(){
 				this.setModel(new RestModel([]));
 				if(this.multiLineChart) this.multiLineChart.getChart().destroy();
-				if(this.multiLineChartBar) this.multiLineChart.getChart().destroy();
+				if(this.multiLineChartBar) this.multiLineChartBar.getChart().destroy();
 			},
 			handleRangeChange(oEvent){
 				let from = oEvent.getParameter('from');
