@@ -71,6 +71,17 @@ sap.ui.define([
                     tooltips: {
                         mode: this.getTooltipMode(),
                         intersect: this.getTooltipIntersect(),
+                        callbacks: {
+                            label: function(tooltipItem, data) {
+                                var label = data.datasets[tooltipItem.datasetIndex].label || '';
+            
+                                if (label) {
+                                    label += ': ';
+                                }
+                                label += formatter.currencyNoSymbol(tooltipItem.yLabel);
+                                return label;
+                            }
+                        }
                     },
                     hover: {
                         mode: this.getHoverMode(),
