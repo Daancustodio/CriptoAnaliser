@@ -17,8 +17,8 @@ sap.ui.define([
                 tooltipIntersect: {type : "boolean", defaultValue: false},                                
                 hoverIntersect: {type : "boolean", defaultValue: true},      
                 hoverMode: {type : "string", defaultValue: "nearest"},  
-                displayLabelX: {type : "boolean", defaultValue: true},      
-                displayLabelY: {type : "boolean", defaultValue: true},  
+                displayLabelX: {type : "boolean", defaultValue: false},      
+                displayLabelY: {type : "boolean", defaultValue: false},  
                 chartType: {type: "string", defaultValue:"line"},
                 width: {
                     type: "sap.ui.core.CSSSize",
@@ -78,17 +78,23 @@ sap.ui.define([
                     },
                     scales: {
                         xAxes: [{
-                            display: this.getDisplayLabelX(),
+                            display: true,
                             scaleLabel: {
-                                display: this.getDisplayLabelY(),
+                                display: this.getDisplayLabelX(),
                                 labelString: this.getLabelX()
                             }
                         }],
                         yAxes: [{
-                            display: this.getDisplayLabelY(),
+                            display: true,
                             scaleLabel: {
                                 display: this.getDisplayLabelY(),
                                 labelString: this.getLabelY()
+                            },
+                            ticks: {
+                                // Include a dollar sign in the ticks
+                                callback: function(value, index, values) {
+                                    return  formatter.currency(value);
+                                }
                             }
                         }]
                     }

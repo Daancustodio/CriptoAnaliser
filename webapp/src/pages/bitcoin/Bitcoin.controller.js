@@ -10,6 +10,15 @@ sap.ui.define(
 			onInit : function(){
 				console.log("controller [Bitcoin] Inicializado");
 				this.getLastDaysData(7);
+				/* let data = {
+					types : [
+						{type:'bar',name:"Barra"},
+						{type:'line',name:"Linhas"},
+						{type:'bubble',name:"Bolhas"},
+					],
+					selectedType: "bar"
+				}
+				this.setModel(new RestModel(data), "Chart"); */
 			},		
 			getLastDaysData(lastDaysCount){
 				this.setModel(new RestModel([]), "LastDays");
@@ -33,7 +42,7 @@ sap.ui.define(
 				})
 			},
 			buildChart(){
-				const chartColors = {
+				let chartColors = {
 					red: 'rgb(255, 99, 132)',
 					orange: 'rgb(255, 159, 64)',
 					yellow: 'rgb(255, 205, 86)',
