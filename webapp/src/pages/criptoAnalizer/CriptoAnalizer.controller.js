@@ -51,6 +51,7 @@ sap.ui.define(
 			handleRangeChange(oEvent){
 				let from = oEvent.getParameter('from');
 				let to = oEvent.getParameter('to');
+				this.onClean();
 				this.getApiDataRange(from, to);
 			}
 			,
