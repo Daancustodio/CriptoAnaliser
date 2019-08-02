@@ -22,7 +22,7 @@
 					headerText="BTC - Ultimos 7 dias"
 					items="{path:'LastDays>/', sorter:'coin'}">
                 <f:customLayout>
-                    <grid:GridBoxLayout boxMinWidth="10rem"/>
+                    <grid:GridBoxLayout boxMinWidth="8rem"/>
                 </f:customLayout>
                 <CustomListItem>
                     <VBox height="100%">
@@ -37,16 +37,47 @@
             </f:GridList>
             <f:GridList>
                 <f:customLayout>
-                    <grid:GridBoxLayout boxMaxWidth="50%"/>
+                   	<grid:GridResponsiveLayout layoutChange="onLayoutChange">
+						<grid:layoutS>
+							<grid:GridSettings
+									gridTemplateColumns="repeat(auto-fit, 100%)"
+									gridGap="0.25rem 0.25rem">
+							</grid:GridSettings>
+						</grid:layoutS>
+						<grid:layoutM>
+							<grid:GridSettings
+									gridTemplateColumns="repeat(auto-fit,100%)"
+									gridGap="0.5rem 0.5rem">
+							</grid:GridSettings>
+						</grid:layoutM>
+						<grid:layoutL>
+							<grid:GridSettings
+									gridTemplateColumns="repeat(auto-fit,  49%)"
+									gridGap="1rem 1rem">
+							</grid:GridSettings>
+						</grid:layoutL>
+						<grid:layoutXL>
+							<grid:GridSettings
+									gridTemplateColumns="repeat(auto-fit, fr)"
+									gridGap="1rem 1rem">
+							</grid:GridSettings>
+						</grid:layoutXL>
+					</grid:GridResponsiveLayout>
                 </f:customLayout>
                 <CustomListItem>
                     <VBox class="sapUiSmallMargin" width="95%" >
+                    <layoutData>
+                                <FlexItemData growFactor="1" shrinkFactor="0" />
+                            </layoutData>
                         <Title text="Linhas" />
                         <invCharts:MultiLineChart chartType="line" id="multiLineChart" height="350px"  />
                     </VBox>
                 </CustomListItem>
                 <CustomListItem>
                     <VBox  class="sapUiSmallMargin" width="95%" >
+                    <layoutData>
+                                <FlexItemData growFactor="1" shrinkFactor="0" />
+                            </layoutData>
                         <Title text="Barras" />
                         <invCharts:MultiLineChart chartType="bar" id="multiLineChartBar" height="350px"  />
                     </VBox>
