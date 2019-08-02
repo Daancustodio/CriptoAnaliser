@@ -68,10 +68,7 @@
                         </layoutData>
                     </VBox>
                 </FlexBox>
-            </Panel>
-                    <VBox class="sapUiSmallMargin" width="95%" >                   
-					    <invCharts:MultiLineChart chartType="{Chart>/selectedType}" id="multiLineChart" height="350px"  />				
-				    </VBox>
+            </Panel>                  
                     <f:GridList
 					id="gridList"
 					headerText="Resumo por data"
@@ -90,6 +87,12 @@
                             </VBox>
                         </CustomListItem>
                     </f:GridList>
+                    <VBox class="sapUiSmallMargin" width="95%" >                   
+					    <invCharts:MultiLineChart chartType="line" id="multiLineChart" height="350px"  />				
+				    </VBox>
+                    <VBox class="sapUiSmallMargin" width="95%" >                   
+					    <invCharts:MultiLineChart chartType="bar" id="multiLineChartBar" height="350px"  />				
+				    </VBox>
                    
                 
         </content>

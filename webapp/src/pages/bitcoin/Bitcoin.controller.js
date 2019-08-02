@@ -63,12 +63,12 @@ sap.ui.define(
 				let data = this.getModel("LastDays").getData();
 				let max = {fill : false, label: "Máxima", backgroundColor: chartColors.green, borderColor: chartColors.green};
 				let lowest = {fill :false, label: "Mínima", backgroundColor: chartColors.red, borderColor: chartColors.red};
-				let diff = {fill :false, label: "Variação", backgroundColor: chartColors.yellow, borderColor: chartColors.yellow};
+				let diff = {fill :true, label: "Variação", backgroundColor: chartColors.yellow, borderColor: chartColors.yellow};
 				max.data = data.map(x => x.highest.toFixed(2))
 				lowest.data = data.map(x => x.lowest.toFixed(2))
 				diff.data = data.map(x => (x.highest - x.lowest).toFixed(2));
 				let labels = data.map(x => `${x.day}/${x.month}/${x.year}`);				
-				let dataSets = [max, lowest, diff];		
+				let dataSets = [diff, lowest, max];		
 				return {dataSets, labels};
 			},
 

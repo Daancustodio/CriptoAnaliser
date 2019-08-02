@@ -111,12 +111,12 @@
           "target": "languages"
         },
         {
-          "pattern": "",
+          "pattern": "criptoAnalizer",
           "name": "criptoAnalizer",
           "target": "criptoAnalizer"
         },
         {
-          "pattern": "bitcoin",
+          "pattern": "",
           "name": "bitcoin",
           "target": "bitcoin"
         }
