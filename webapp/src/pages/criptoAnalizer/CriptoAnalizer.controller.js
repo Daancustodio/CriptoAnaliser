@@ -45,6 +45,7 @@ sap.ui.define(
 			},
 			onClean(){
 				this.setModel(new RestModel([]));
+				if(this.multiLineChart) this.multiLineChart.getChart().destroy();
 			},
 			handleRangeChange(oEvent){
 				let from = oEvent.getParameter('from');
@@ -92,6 +93,7 @@ sap.ui.define(
 				})
 			},
 			buildChart(){				
+				this.multiLineChart = this.byId('multiLineChart');
 				let chartColors = {
 					red: 'rgb(255, 99, 132)',
 					orange: 'rgb(255, 159, 64)',
@@ -101,7 +103,6 @@ sap.ui.define(
 					purple: 'rgb(153, 102, 255)',
 					grey: 'rgb(201, 203, 207)'
 				}; 
-				let control = this.byId('multiLineChart');
 				let data = this.getModel().getData();
 				let max = {fill : false, label: "Máxima", backgroundColor: chartColors.green, borderColor: chartColors.green};
 				let lowest = {fill :false, label: "Mínima", backgroundColor: chartColors.red, borderColor: chartColors.red};
@@ -111,7 +112,7 @@ sap.ui.define(
 				diff.data = data.map(x => (x.highest - x.lowest).toFixed(2));
 				let labels = data.map(x => `${x.day}/${x.month}/${x.year}`);				
 				let dataSets = [max, lowest, diff];				
-				control.show(dataSets, labels);
+				this.multiLineChart.show(dataSets, labels);
 			},
 			getApiData(date){
 				let url = `https://www.mercadobitcoin.net/api/${this.getSelectedCoin()}/day-summary/${this.formatDataToApi(date)}`;

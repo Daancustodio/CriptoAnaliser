@@ -45,6 +45,10 @@ sap.ui.define([
             oRm.write(">");
             oRm.write("</canvas>");
         },
+        getChart: function(){
+            return this.multiLineChart;
+        },
+        
         show: function(dataSets, labels) {
             var canvas = document.querySelector("canvas");
             try {
