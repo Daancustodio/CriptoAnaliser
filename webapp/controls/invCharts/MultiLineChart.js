@@ -45,7 +45,7 @@ sap.ui.define([
             oRm.write(">");
             oRm.write("</canvas>");
         },
-        activate: function(dataSets, labels) {
+        show: function(dataSets, labels) {
             var canvas = document.querySelector("canvas");
             try {
                     const config = this.getChartConfig(dataSets, labels);
@@ -78,7 +78,7 @@ sap.ui.define([
                                 if (label) {
                                     label += ': ';
                                 }
-                                label += formatter.currencyNoSymbol(tooltipItem.yLabel);
+                                label += formatter.currency(tooltipItem.yLabel);
                                 return label;
                             }
                         }
@@ -101,8 +101,7 @@ sap.ui.define([
                                 display: this.getDisplayLabelY(),
                                 labelString: this.getLabelY()
                             },
-                            ticks: {
-                                // Include a dollar sign in the ticks
+                            ticks: {                                
                                 callback: function(value, index, values) {
                                     return  formatter.currency(value);
                                 }

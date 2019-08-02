@@ -86,8 +86,32 @@ sap.ui.define(
 						from = this.addDays(from, 1);
 						this.getApiDataRange(from, to);					
 						this.pushModel(data);
+					}else{
+						this.buildChart()
 					}
 				})
+			},
+			buildChart(){				
+				let chartColors = {
+					red: 'rgb(255, 99, 132)',
+					orange: 'rgb(255, 159, 64)',
+					yellow: 'rgb(255, 205, 86)',
+					green: 'rgb(75, 192, 192)',
+					blue: 'rgb(54, 162, 235)',
+					purple: 'rgb(153, 102, 255)',
+					grey: 'rgb(201, 203, 207)'
+				}; 
+				let control = this.byId('multiLineChart');
+				let data = this.getModel().getData();
+				let max = {fill : false, label: "Máxima", backgroundColor: chartColors.green, borderColor: chartColors.green};
+				let lowest = {fill :false, label: "Mínima", backgroundColor: chartColors.red, borderColor: chartColors.red};
+				let diff = {fill :false, label: "Variação", backgroundColor: chartColors.yellow, borderColor: chartColors.yellow};
+				max.data = data.map(x => x.highest.toFixed(2))
+				lowest.data = data.map(x => x.lowest.toFixed(2))
+				diff.data = data.map(x => (x.highest - x.lowest).toFixed(2));
+				let labels = data.map(x => `${x.day}/${x.month}/${x.year}`);				
+				let dataSets = [max, lowest, diff];				
+				control.show(dataSets, labels);
 			},
 			getApiData(date){
 				let url = `https://www.mercadobitcoin.net/api/${this.getSelectedCoin()}/day-summary/${this.formatDataToApi(date)}`;
@@ -100,7 +124,11 @@ sap.ui.define(
 						
 						if(this.status == 200 && this.readyState == 4){
 							let res = JSON.parse(this.responseText);
+							let foundedDate = new Date(res.date);
 							res.coin = that.getSelectedCoin();
+							res.day = foundedDate.getDate()
+							res.month = foundedDate.getMonth() + 1;
+							res.year = foundedDate.getFullYear();
 							resolve(res);
 						}
 					});

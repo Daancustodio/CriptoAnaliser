@@ -61,7 +61,7 @@ sap.ui.define(
 				diff.data = data.map(x => (x.highest - x.lowest).toFixed(2));
 				let labels = data.map(x => `${x.day}/${x.month}/${x.year}`);				
 				let dataSets = [max, lowest, diff];				
-				control.activate(dataSets, labels);
+				control.show(dataSets, labels);
 			},
 			addDays(date, days) {
 				var result = new Date(date);

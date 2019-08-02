@@ -3,6 +3,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
     xmlns:core="sap.ui.core"
+    xmlns:invCharts="CriptAnaliser.controls.invCharts"
     xmlns:custom="CriptAnaliser.controls"
     xmlns:l="sap.ui.layout"
     xmlns:grid="sap.ui.layout.cssgrid"
@@ -68,22 +69,9 @@
                     </VBox>
                 </FlexBox>
             </Panel>
-            <!-- <Panel class="sapUiDemoFlexBoxSizeAdjustments">
-                <headerToolbar>
-                    <Toolbar>
-                        <Title level="H2" text="Resumo por data" />
-                    </Toolbar>
-                </headerToolbar>
-                <FlexBox
-					 backgroundDesign="Translucent" 
-					alignItems="Start"
-					items="{path:'/', sorter:'coin'}">
-                    <VBox class="sapUiContentPadding" style="border: solid 1px #48a9c5">
-                        <custom:MinMax minima="{lowest}" maxima="{highest}" day="{date}" coin="{coin}"/>
-                    </VBox>
-                </FlexBox>
-            </Panel> -->
-            
+                    <VBox class="sapUiSmallMargin" width="95%" >                   
+					    <invCharts:MultiLineChart chartType="{Chart>/selectedType}" id="multiLineChart" height="350px"  />				
+				    </VBox>
                     <f:GridList
 					id="gridList"
 					headerText="Resumo por data"
@@ -102,6 +90,7 @@
                             </VBox>
                         </CustomListItem>
                     </f:GridList>
+                   
                 
         </content>
     </Page>
