@@ -40,7 +40,7 @@ sap.ui.define([
             let current = oControl.getCurrent();
             let coin = oControl.getCoin();
 
-            let labeltring =  `${coin} - ${day}`;
+            let labeltring =  `${day}`;
 
             const createObjectNumber = function(state, value, percent){
                 let oNumber = new sap.m.ObjectNumber({
@@ -81,6 +81,8 @@ sap.ui.define([
             let vboxStart = new sap.m.VBox({justifyContent:"SpaceAround"})
             let vboxMiddle = new sap.m.VBox({ alignItems:"Center"})
             let vboxEnd = new sap.m.VBox({justifyContent:"SpaceAround"})
+
+            vboxMiddle.addItem(labelCoinAndDate)
 
             vboxStart.addItem(oOpen)
             vboxMiddle.addItem(oMaxima)
