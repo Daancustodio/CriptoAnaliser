@@ -19,10 +19,10 @@
         <content>
             <f:GridList
 					id="gridList"
-					headerText="BTC - Ultimos 7 dias"
+					headerText="BTC - Ultimos 8 dias"
 					items="{path:'LastDays>/', sorter:'coin'}">
                 <f:customLayout>
-                    <grid:GridBoxLayout boxMinWidth="8rem"/>
+                    <grid:GridBoxLayout boxMinWidth="15rem"/>
                 </f:customLayout>
                 <CustomListItem>
                     <VBox height="100%">
@@ -30,7 +30,7 @@
                             <layoutData>
                                 <FlexItemData growFactor="1" shrinkFactor="0" />
                             </layoutData>
-                            <custom:MinMax minima="{LastDays>lowest}" maxima="{LastDays>highest}" day="{LastDays>date}" coin="{LastDays>coin}"/>
+                            <custom:CriptoResume minima="{LastDays>lowest}" volume="{LastDays>volume}" open="{LastDays>opening}" close="{LastDays>closing}" maxima="{LastDays>highest}" day="{LastDays>date}" coin="{LastDays>coin}"/>
                         </VBox>
                     </VBox>
                 </CustomListItem>

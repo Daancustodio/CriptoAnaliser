@@ -45,6 +45,7 @@
                     <Button  width="100%"  text="Buscar" type="Accept" press="onFind"></Button>
                 </VBox>
             </HBox>
+            
             <Panel class="sapUiDemoFlexBoxSizeAdjustments bg-grey">
                 <headerToolbar>
                     <Toolbar>
@@ -69,30 +70,33 @@
                     </VBox>
                 </FlexBox>
             </Panel>                  
-                    <f:GridList
-					id="gridList"
-					headerText="Resumo por data"
-					items="{path:'/', sorter:'coin'}">
-                        <f:customLayout>
-                            <grid:GridBoxLayout boxMinWidth="10rem"/>
-                        </f:customLayout>
-                        <CustomListItem>
-                            <VBox height="100%">
-                                <VBox class="sapUiSmallMargin">
-                                    <layoutData>
-                                        <FlexItemData growFactor="1" shrinkFactor="0" />
-                                    </layoutData>
-                                    <custom:MinMax minima="{lowest}" maxima="{highest}" day="{date}" coin="{coin}"/>
-                                </VBox>
-                            </VBox>
-                        </CustomListItem>
-                    </f:GridList>
-                    <VBox class="sapUiSmallMargin" width="95%" >                   
-					    <invCharts:MultiLineChart chartType="line" id="multiLineChart" height="350px"  />				
-				    </VBox>
-                    <VBox class="sapUiSmallMargin" width="95%" >                   
-					    <invCharts:MultiLineChart chartType="bar" id="multiLineChartBar" height="350px"  />				
-				    </VBox>
+            
+            <f:GridList
+                id="gridList"
+                headerText="Resumo por data"
+                items="{path:'/', sorter:'coin'}">
+                <f:customLayout>
+                    <grid:GridBoxLayout boxMinWidth="10rem"/>
+                </f:customLayout>
+                <CustomListItem>
+                    <VBox height="100%">
+                        <VBox class="sapUiSmallMargin">
+                            <layoutData>
+                                <FlexItemData growFactor="1" shrinkFactor="0" />
+                            </layoutData>
+                            <custom:MinMax minima="{lowest}" maxima="{highest}" day="{date}" coin="{coin}"/>
+                        </VBox>
+                    </VBox>
+                </CustomListItem>
+            </f:GridList>
+            
+            <VBox class="sapUiSmallMargin" width="95%" >                   
+                <invCharts:MultiLineChart chartType="line" id="multiLineChart" height="350px"  />				
+            </VBox>
+
+            <VBox class="sapUiSmallMargin" width="95%" >                   
+                <invCharts:MultiLineChart chartType="bar" id="multiLineChartBar" height="350px"  />				
+            </VBox>
                    
                 
         </content>

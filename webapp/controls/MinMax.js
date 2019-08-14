@@ -38,7 +38,7 @@ sap.ui.define([
             let percentVariation = (100 / percentBase) * diff;
             percentVariation = percentVariation.toFixed(2);
 
-            //let day =oControl.getDay()
+            //let day = oControl.getDay()
             let current = oControl.getCurrent();
             let coin = oControl.getCoin();
             const createObjectNumber = function(state, value, percent){
@@ -51,9 +51,9 @@ sap.ui.define([
                 return oNumber;
             }
             let labeltring =  `${coin} - ${day}`;
-            let top = createObjectNumber("Success", max);
+            let top = createObjectNumber("Success", max, "Max");
             top.setTooltip("Máxima");
-            let middle = createObjectNumber("Error", min);
+            let middle = createObjectNumber("Error", min, 'Min');
             middle.setTooltip("Mínima");
             let percentTExt = `(${percentVariation}%)`
             let bottom = createObjectNumber("Warning", diff, percentTExt);

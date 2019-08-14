@@ -9,10 +9,7 @@ sap.ui.define(
 		"use strict";
 
 		return BaseController.extend("CriptAnaliser.src.pages.criptoAnalizer.CriptoAnalizer", {
-			onInit : function(){
-			/* 	this.attachToAddOnenter("inputDay")
-				this.attachToAddOnenter("inputMonth")
-				this.attachToAddOnenter("inputYear") */
+			onInit : function(){		
 				this.setModel(new RestModel([]));				
 				this.setModel(new RestModel(this.getCoins()), "Coins");
 				this.setModel(new RestModel({SelectedCoin : "BTC"}), "View");
@@ -37,6 +34,7 @@ sap.ui.define(
 						});
 						
 						tickersModel.setData(modelData);
+						console.log(modelData)
 					})
 				});
 			},

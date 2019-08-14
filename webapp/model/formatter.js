@@ -170,7 +170,7 @@ sap.ui.define([
        return "";
 
       var currencyFormatter = new sap.ui.model.type.Currency({decimals:2});
-      var formated = currencyFormatter.formatValue([amount.toString(),'R$ '], 'string');
+      var formated = currencyFormatter.formatValue([amount.toString(),'R$'], 'string');
       return formated;
     },
     currencyNoSymbol: function(amount) {

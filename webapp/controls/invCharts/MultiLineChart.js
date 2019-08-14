@@ -45,6 +45,9 @@ sap.ui.define([
             oRm.write(">");
             oRm.write("</canvas>");
         },
+        onAfterRendering: function(){
+            //this.show()
+        },
         getChart: function(){
             return this.multiLineChart;
         },

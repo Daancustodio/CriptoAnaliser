@@ -10,7 +10,7 @@ sap.ui.define(
 		return BaseController.extend("CriptAnaliser.src.pages.bitcoin.Bitcoin", {
 			onInit : function(){
 				console.log("controller [Bitcoin] Inicializado");
-				this.getLastDaysData(7);
+				this.getLastDaysData(8);
 				let data = {
 					types : [
 						{type:'bar',name:"Barra"},
@@ -64,11 +64,20 @@ sap.ui.define(
 				let max = {fill : false, label: "Máxima", backgroundColor: chartColors.green, borderColor: chartColors.green};
 				let lowest = {fill :false, label: "Mínima", backgroundColor: chartColors.red, borderColor: chartColors.red};
 				let diff = {fill :true, label: "Variação", backgroundColor: chartColors.yellow, borderColor: chartColors.yellow};
+				
+				let open = {fill :false, label: "Abertura", backgroundColor: chartColors.orange, borderColor: chartColors.orange};
+				let close = {fill :false, label: "Fechamento", backgroundColor: chartColors.blue, borderColor: chartColors.blue};
 				max.data = data.map(x => x.highest.toFixed(2))
 				lowest.data = data.map(x => x.lowest.toFixed(2))
+				open.data = data.map(x => x.opening.toFixed(2))
+				close.data = data.map(x => x.closing.toFixed(2))
+				lowest.data = data.map(x => x.lowest.toFixed(2))
+				
 				diff.data = data.map(x => (x.highest - x.lowest).toFixed(2));
+
 				let labels = data.map(x => `${x.day}/${x.month}/${x.year}`);				
-				let dataSets = [diff, lowest, max];		
+				let dataSets = [open, lowest, max, close];		
+					
 				return {dataSets, labels};
 			},
 
