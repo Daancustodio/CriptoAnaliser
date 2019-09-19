@@ -13,14 +13,27 @@ sap.ui.define(
 				this.setModel(new RestModel([]));				
 				this.setModel(new RestModel(this.getCoins()), "Coins");
 				this.setModel(new RestModel({SelectedCoin : "BTC"}), "View");
-				this.loadTickers()
+				this.loadTickers();
+				this.MyAlerts = this.getItem("myAlerts") || [];
 				setInterval(()=>this.loadTickers(), 25000)
 			},	
+			onAddAlert(oEvent){
+				if (Notification.permission !== 'granted') Notification.requestPermission();
+
+				let coin = this.byId("alertSelectedCoin").getSelectedKey();
+				let value = this.byId("alertSelectedValue").getValue();
+				let id = `${coin}${value}`;
+				let alert = {id, coin,value, resume : `${coin} - ${value}`};
+				this.MyAlerts.push(alert);
+				this.setItem("myAlerts", this.MyAlerts);
+
+				console.log({coin,value});
+			},
 			loadTickers(){
 				this.setModel(new RestModel([]), "Tickers");			
 				let coins = this.getCoins();				
 				let tickersModel = this.getModel("Tickers");
-				let modelData =tickersModel.getData();
+				let modelData = tickersModel.getData();
 				coins.forEach(coin => {
 					this.getTicker(coin.Key)
 					.then(data =>{
@@ -34,9 +47,26 @@ sap.ui.define(
 						});
 						
 						tickersModel.setData(modelData);
+						this.showAlert(data);
 						console.log(modelData)
 					})
 				});
+			},
+			showAlert(ticker){
+				console.log(ticker, "ticker alerts")
+				let alertsToThisCoin = this.MyAlerts.filter(x => x.coin == ticker.coin);
+				alertsToThisCoin.forEach(x =>{
+					let val = parseFloat(x.value)
+					let valueString = val.toLocaleString('pt-br',{style: 'currency', currency:'BRL'})
+					if(val >= ticker.last){
+					 new Notification(`Alerta ${ticker.coin} - ${valueString}` , {
+						icon: 'https://www.custodio.dev/CriptoAnaliser/webapp/img/logo.png',
+						body: 'Valor alvo alcaçado',
+					   });
+
+					   this.MyAlerts = this.MyAlerts.filter(j => j.id != x.id);
+					}
+				})
 			},
 			getSelectedCoin()	{
 				return this.getModel("View").getProperty("/SelectedCoin");
@@ -166,6 +196,7 @@ sap.ui.define(
 							var totalDiferenca = ticker.high - ticker.low;
 							var atual = (ticker.last - ticker.low) * (100 / totalDiferenca)
 							ticker.percent = Math.round(atual);
+
 							resolve(res.ticker);
 						}
 					});

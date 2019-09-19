@@ -44,8 +44,44 @@
                     <Label text="API" />
                     <Button  width="100%"  text="Buscar" type="Accept" press="onFind"></Button>
                 </VBox>
+                <VBox class="sapUiTinyMargin">           
+              
+                        <Text level="H2" text="Criar Alerta" />
+                            <Select	
+                            id="alertSelectedCoin"				
+                            selectedKey="{NewAlert>/SelectedCoin}"
+                            items="{
+                                path: 'Coins>/',
+                                sorter: { path: 'Value' }
+                            }">
+                            <core:Item key="{Coins>Key}" text="{Coins>Value}" />
+                        </Select>
+                </VBox>
+                <VBox class="sapUiTinyMargin">           
+              
+                        <Text level="H2" text="Tipo" />
+                            <Select	
+                            id="alertTypeSelectedCoin"				
+                            selectedKey="1">
+                            <core:Item key="1" text="Baixa" />
+                            <!-- <core:Item key="2" text="Alta" /> -->
+                        </Select>
+                </VBox>
+                <VBox class="sapUiTinyMargin">
+
+                        <Text level="H2" text="Valor alvo" />
+                        <Input type="Number" id="alertSelectedValue" />
+
+                </VBox>
+                <VBox class="sapUiTinyMargin">
+
+                        <Text level="H2" text="" />
+                        <Button  text="Adicionar" type="Ghost" press="onAddAlert"></Button>
+                </VBox>              
             </HBox>
             
+           
+                         
             <Panel class="sapUiDemoFlexBoxSizeAdjustments bg-grey">
                 <headerToolbar>
                     <Toolbar>
