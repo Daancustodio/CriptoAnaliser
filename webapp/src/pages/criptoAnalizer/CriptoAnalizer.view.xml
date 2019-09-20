@@ -49,27 +49,25 @@
                             <Button  app:coin="{Tickers>coin}" app:last="{Tickers>last}"  app:value="{Tickers>alertValue}" icon="sap-icon://accept" width="100%" press="onAddAlert" />
                         </HBox>
                         <layoutData>
-                            <FlexItemData growFactor="1" />
+                            <FlexItemData growFactor="1" minWidth="225px" />
                         </layoutData>
                     </VBox>
                 </FlexBox>
             </Panel>                  
             
             <f:GridList
-                id="gridList"
-                headerText="Resumo por data"
+                id="gridList"                
                 items="{path:'/', sorter:'coin'}">
                 	<f:headerToolbar>
 					<Toolbar>
-						<content>
-							<Title text="Resumo por data" width="25%"/>                            
-							<ToolbarSpacer/>
-                            <Select					
+						<content>							
+                            <Select	
+                                min-width="55px"				
                                 selectedKey="{View>/SelectedCoin}"
                                 items="{
                                     path: 'Coins>/',
                                     sorter: { path: 'Value' }
-                                }">
+                                    }">
                                     <core:Item key="{Coins>Key}" text="{Coins>Value}" />
                                 </Select>
 							<DateRangeSelection
@@ -79,9 +77,8 @@
                                 displayFormat="dd/MM/yyyy"
                                 change="handleRangeChange"
                             />
-                    <Button    text="Limpar dados" type="Ghost" press="onClean"></Button>
-                    <Button    text="Buscar" type="Accept" press="onFind"></Button>
-
+                            <Button  icon="sap-icon://sys-cancel" type="Ghost" press="onClean"></Button>
+                            <Button   icon="sap-icon://search" type="Accept" press="onFind"></Button>
 						</content>
 					</Toolbar>
 				</f:headerToolbar>
