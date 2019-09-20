@@ -26,7 +26,8 @@ sap.ui.define(
 				let last = input.data('last');
 				let isDownAlert = last > value;
 				let id = `${coin}${value}`;
-				let resume = isDownAlert ? `Expectativa de BAIXA ${value} alcançada` : `Expectativa de ALTA  ${value} alcançada`;
+				let valueString = value.toLocaleString('pt-br',{style: 'currency', currency:'BRL'});
+				let resume = isDownAlert ? `Expectativa de BAIXA ${valueString} alcançada` : `Expectativa de ALTA  ${valueString} alcançada`;
 				let alert = {id, coin, value, isDownAlert, resume};
 				this.MyAlerts.push(alert);
 				this.setItem(MY_ALERTS_PATH, this.MyAlerts);
