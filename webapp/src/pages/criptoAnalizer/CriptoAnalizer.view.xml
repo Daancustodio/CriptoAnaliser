@@ -7,6 +7,7 @@
     xmlns:custom="CriptAnaliser.controls"
     xmlns:l="sap.ui.layout"
     xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
     xmlns:f="sap.f"
 	height="100%">
     <Page 
@@ -14,74 +15,6 @@
 		title="{i18n>Commom.CriptoAnalizer}" 
 		navButtonPress="onNavBack">
         <content>
-            <HBox>
-                <VBox class="sapUiTinyMargin" >
-                    <Label text="Moeda" />
-                    <Select					
-                    selectedKey="{View>/SelectedCoin}"
-                    items="{
-                        path: 'Coins>/',
-                        sorter: { path: 'Value' }
-                    }">
-                        <core:Item key="{Coins>Key}" text="{Coins>Value}" />
-                    </Select>
-                </VBox>
-                <VBox class="sapUiTinyMargin" width="230px">
-                    <Label text="Inicio" />
-                    <DateRangeSelection
-                        id="DRS1"		
-                        dateValue="{path:'View>/dateValueDRS1'}"
-                        secondDateValue="{path:'View>/secondDateValueDRS1'}"
-                        displayFormat="dd/MM/yyyy"
-                        change="handleRangeChange"
-		            />
-                </VBox>                
-                <VBox class="sapUiTinyMargin">
-                    <Label text="Limpar" />
-                    <Button  width="100%"  text="Limpar dados" type="Ghost" press="onClean"></Button>
-                </VBox>
-                <VBox class="sapUiTinyMargin">
-                    <Label text="API" />
-                    <Button  width="100%"  text="Buscar" type="Accept" press="onFind"></Button>
-                </VBox>
-                <VBox class="sapUiTinyMargin">           
-              
-                        <Text level="H2" text="Criar Alerta" />
-                            <Select	
-                            id="alertSelectedCoin"				
-                            selectedKey="{NewAlert>/SelectedCoin}"
-                            items="{
-                                path: 'Coins>/',
-                                sorter: { path: 'Value' }
-                            }">
-                            <core:Item key="{Coins>Key}" text="{Coins>Value}" />
-                        </Select>
-                </VBox>
-                <VBox class="sapUiTinyMargin">           
-              
-                        <Text level="H2" text="Tipo" />
-                            <Select	
-                            id="alertTypeSelectedCoin"				
-                            selectedKey="1">
-                            <core:Item key="1" text="Baixa" />
-                            <!-- <core:Item key="2" text="Alta" /> -->
-                        </Select>
-                </VBox>
-                <VBox class="sapUiTinyMargin">
-
-                        <Text level="H2" text="Valor alvo" />
-                        <Input type="Number" id="alertSelectedValue" />
-
-                </VBox>
-                <VBox class="sapUiTinyMargin">
-
-                        <Text level="H2" text="" />
-                        <Button  text="Adicionar" type="Ghost" press="onAddAlert"></Button>
-                </VBox>              
-            </HBox>
-            
-           
-                         
             <Panel class="sapUiDemoFlexBoxSizeAdjustments bg-grey">
                 <headerToolbar>
                     <Toolbar>
@@ -100,6 +33,21 @@
                             displayValue="{Tickers>percent}%^"
                             showValue="true"
                             state="{path:'Tickers>percent', formatter: '.fmt.formatPercentVariation'}" />
+                        <Label text="Adicionar Alerta" />
+                        <HBox>                            
+                            <StepInput
+                                
+                                id="alertSelectedValue"
+                                value="{Tickers>alertValue}"
+                                displayValuePrecision="2"					
+                                step="{= ${Tickers>last} / 97 }"                                
+                                enabled="true"
+                                editable="true"                                
+                                fieldWidth="{fieldWidth}"
+                                textAlign=""                                
+                            />
+                            <Button  app:coin="{Tickers>coin}" app:last="{Tickers>last}"  app:value="{Tickers>alertValue}" icon="sap-icon://accept" width="100%" press="onAddAlert" />
+                        </HBox>
                         <layoutData>
                             <FlexItemData growFactor="1" />
                         </layoutData>
@@ -111,6 +59,32 @@
                 id="gridList"
                 headerText="Resumo por data"
                 items="{path:'/', sorter:'coin'}">
+                	<f:headerToolbar>
+					<Toolbar>
+						<content>
+							<Title text="Resumo por data" width="25%"/>                            
+							<ToolbarSpacer/>
+                            <Select					
+                                selectedKey="{View>/SelectedCoin}"
+                                items="{
+                                    path: 'Coins>/',
+                                    sorter: { path: 'Value' }
+                                }">
+                                    <core:Item key="{Coins>Key}" text="{Coins>Value}" />
+                                </Select>
+							<DateRangeSelection
+                                id="DRS1"		
+                                dateValue="{path:'View>/dateValueDRS1'}"
+                                secondDateValue="{path:'View>/secondDateValueDRS1'}"
+                                displayFormat="dd/MM/yyyy"
+                                change="handleRangeChange"
+                            />
+                    <Button    text="Limpar dados" type="Ghost" press="onClean"></Button>
+                    <Button    text="Buscar" type="Accept" press="onFind"></Button>
+
+						</content>
+					</Toolbar>
+				</f:headerToolbar>
                 <f:customLayout>
                     <grid:GridBoxLayout boxMinWidth="10rem"/>
                 </f:customLayout>

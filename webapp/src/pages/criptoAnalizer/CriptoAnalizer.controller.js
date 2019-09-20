@@ -7,26 +7,30 @@ sap.ui.define(
 	], 
 	function (BaseController, RestModel) {
 		"use strict";
-
+		const MY_ALERTS_PATH = 'myAlerts';
 		return BaseController.extend("CriptAnaliser.src.pages.criptoAnalizer.CriptoAnalizer", {
 			onInit : function(){		
 				this.setModel(new RestModel([]));				
 				this.setModel(new RestModel(this.getCoins()), "Coins");
 				this.setModel(new RestModel({SelectedCoin : "BTC"}), "View");
 				this.loadTickers();
-				this.MyAlerts = this.getItem("myAlerts") || [];
-				setInterval(()=>this.loadTickers(), 25000)
+				this.MyAlerts = this.getItem(MY_ALERTS_PATH) || [];
+				setInterval(()=>this.loadTickers(), 50000)
 			},	
+			
 			onAddAlert(oEvent){
 				if (Notification.permission !== 'granted') Notification.requestPermission();
-
-				let coin = this.byId("alertSelectedCoin").getSelectedKey();
-				let value = this.byId("alertSelectedValue").getValue();
+				let input = oEvent.getSource()//.getParent()//this.byId("alertSelectedValue")
+				let coin = input.data("coin");
+				let value = input.data('value');				
+				let last = input.data('last');
+				let isDownAlert = last > value;
 				let id = `${coin}${value}`;
-				let alert = {id, coin,value, resume : `${coin} - ${value}`};
+				let resume = isDownAlert ? `Expectativa de BAIXA ${value} alcançada` : `Expectativa de ALTA  ${value} alcançada`;
+				let alert = {id, coin, value, isDownAlert, resume};
 				this.MyAlerts.push(alert);
-				this.setItem("myAlerts", this.MyAlerts);
-
+				this.setItem(MY_ALERTS_PATH, this.MyAlerts);
+				sap.m.MessageToast.show("Alerta adicionado")
 				console.log({coin,value});
 			},
 			loadTickers(){
@@ -47,42 +51,47 @@ sap.ui.define(
 						});
 						
 						tickersModel.setData(modelData);
-						this.showAlert(data);
-						console.log(modelData)
+						this.showAlert(data);						
 					})
 				});
 			},
+
 			showAlert(ticker){
-				console.log(ticker, "ticker alerts")
+				
 				let alertsToThisCoin = this.MyAlerts.filter(x => x.coin == ticker.coin);
 				alertsToThisCoin.forEach(x =>{
 					let val = parseFloat(x.value)
-					let valueString = val.toLocaleString('pt-br',{style: 'currency', currency:'BRL'})
-					if(val >= ticker.last){
-					 new Notification(`Alerta ${ticker.coin} - ${valueString}` , {
-						icon: 'https://www.custodio.dev/CriptoAnaliser/webapp/img/logo.png',
-						body: 'Valor alvo alcaçado',
-					   });
-
-					   this.MyAlerts = this.MyAlerts.filter(j => j.id != x.id);
+					let valueString = ticker.last.toLocaleString('pt-br',{style: 'currency', currency:'BRL'})
+					x.last =valueString;
+					if(x.isDownAlert && val >= ticker.last){
+					  notifyMe(x);
+					  this.MyAlerts = this.MyAlerts.filter(j => j.id != x.id);
+					  this.setItem(MY_ALERTS_PATH, this.MyAlerts);
+					}else if(!x.isDownAlert && val <= ticker.last){
+					  notifyMe(x, valueString);
+					  this.MyAlerts = this.MyAlerts.filter(j => j.id != x.id);
+					  this.setItem(MY_ALERTS_PATH, this.MyAlerts);
 					}
 				})
 			},
+
 			getSelectedCoin()	{
 				return this.getModel("View").getProperty("/SelectedCoin");
 			},
+
 			onClean(){
 				this.setModel(new RestModel([]));
 				if(this.multiLineChart) this.multiLineChart.getChart().destroy();
 				if(this.multiLineChartBar) this.multiLineChartBar.getChart().destroy();
 			},
+
 			handleRangeChange(oEvent){
 				let from = oEvent.getParameter('from');
 				let to = oEvent.getParameter('to');
 				this.onClean();
 				this.getApiDataRange(from, to);
-			}
-			,
+			},
+
 			getCoins(){
 				let coins = [
 					{ Key : "BTC", Value : "Bitcoin"},
@@ -93,6 +102,7 @@ sap.ui.define(
 				]
 				return coins;
 			},
+
 			addDays(date, days) {
 				var result = new Date(date);
 				result.setDate(result.getDate() + days);
@@ -190,9 +200,10 @@ sap.ui.define(
 							let ticker = res.ticker;
 							ticker.coin = coin;
 							ticker.date = "Hoje"
-							ticker.low = Number.parseFloat(ticker.low)
-							ticker.high = Number.parseFloat(ticker.high)
-							ticker.last = Number.parseFloat(ticker.last)
+							ticker.low = parseFloat(ticker.low)
+							ticker.high = parseFloat(ticker.high)
+							ticker.last = parseFloat(ticker.last)
+							ticker.alertValue = parseFloat(res.ticker.last)
 							var totalDiferenca = ticker.high - ticker.low;
 							var atual = (ticker.last - ticker.low) * (100 / totalDiferenca)
 							ticker.percent = Math.round(atual);
@@ -257,3 +268,10 @@ sap.ui.define(
 		});
 	}
 );
+function notifyMe(ticker) {
+	new Notification(`Alerta ${ticker.coin} - ${ticker.last}`, {
+		icon: 'https://www.custodio.dev/CriptoAnaliser/webapp/img/logo.png',
+		body: ticker.resume,
+	});
+}
+

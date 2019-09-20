@@ -1,0 +1,40 @@
+<core:FragmentDefinition 
+	xmlns:core="sap.ui.core" 
+	xmlns:tnt="sap.tnt"
+	xmlns="sap.m">
+	<Dialog 
+		id="userAlerts" 
+		title="Meus Alertas" 
+		class="sapUiPopupWithPadding" 
+		draggable="true">		
+		<beginButton>
+			<Button  type="Accept" class="sapUiSmallMarginLeft"  text="Adicionar"  press="" />
+		</beginButton>
+		<endButton>
+			<Button   type="Ghost" class="sapUiSmallMarginLeft" text="Cancelar"  press="onCancel" />
+		</endButton>
+		
+		<content>
+		<VBox>
+		<List id="notificationList" items="{/Alerts}">
+			<StandardListItem
+			title="R$ 200,00"
+			unread="true"
+			showUnreadIndicator="true"
+			description="{ProductId}"			
+			iconInset="false" />
+		</List>
+		</VBox>
+			<VBox>
+				<Select
+					width="100%"
+					id="alertTypeSelectedCoin"				
+					selectedKey="1">
+					<core:Item key="1" text="Alerta de Compra" />
+					<core:Item key="2" text="Alerta de Venda" />                        
+				</Select>	
+			</VBox>
+		</content>
+	</Dialog>
+	
+</core:FragmentDefinition>
